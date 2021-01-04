@@ -1,0 +1,62 @@
+.flex-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    margin-bottom: 0px;
+    flex-wrap: wrap;
+    
+  }
+
+#Rock {
+    margin-left: 100px;
+  }
+
+.image , .playerImage{
+    height: 170px;
+    width: 170px;
+}
+
+.Choice-Results {
+    font-size: 30px;
+}
+
+.player{
+    margin-Right: 275px;
+    margin-top: -75px;
+}
+
+.computer{
+    margin-left: 275px;
+    margin-top: -75px;
+}
+
+.playerScore{
+    margin-Right: 375px;
+    margin-top: -25px;
+}
+
+.computerScore{
+    margin-left: 210px;
+    margin-top: -25px;
+}
+
+.Explanation {
+    text-align: center;
+}
+
+
+.clicked {
+    transition-property: border;
+    transition-duration: 1.0s;
+    border: black;
+    border-radius: 10%;
+    border-style: solid;
+    border-width: medium; 
+    box-shadow: 3px 5px 1.5px lightgray;
+}
+
+.center{
+    margin-top: 100px;
+    display: block;
+    text-align: right;
+}

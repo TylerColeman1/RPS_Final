@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rock Paper Scissors</title>
+  <link rel = "stylesheet" type = "text/css" href="styles.css" />
+  <meta charset="UTF-8"/>
+</head>
+<body>
+
+    <div class = Explanation> 
+        <h1>First to 5 wins!</h1>
+        <h2>Choose Rock, Paper, or Scissors!</h2>
+    </div>
+    
+    <div class = "Images flex-container">
+        <img src="Images/Rock.jpg" class = playerImage id= 'player-Rock' alt="Rock">
+        <img src="Images/Paper.png" class = playerImage id='player-Paper' alt="Paper">
+        <img src="Images/Scissors.png" class = playerImage id='player-Scissors' alt="Scissors">
+        <img src="Images/Rock.jpg" class = image id= 'Rock' alt="Rock">
+        <img src="Images/Paper.png" class = image id='Paper' alt="Paper">
+        <img src="Images/Scissors.png" class = image id='Scissors' alt="Scissors">
+    </div>
+    <div class = 'Choice-Results flex-container'>
+        <p class = 'player'>Your Selection:</p>
+        <p class = 'computer'>Computer's Selection:</p>
+        <p class = 'playerScore'>Player Score: </p>
+        <p class = 'computerScore'>Computer Score: </p>
+    </div>
+
+  <script>
+
+
+    function remove(e, turn){
+        const imageClicked = document.querySelector(`.playerImage[id = "${e.target.id}"]`);
+        imageClicked.classList.remove('clicked')
+
+        turn = turn.charAt(0).toUpperCase() + turn.slice(1);
+        const computerClicked = document.querySelector(`.image[id = "${turn}"]`);
+        computerClicked.classList.remove('clicked');
+    }
+      function personPlay(e){
+        const imageClicked = document.querySelector(`.playerImage[id = "${e.target.id}"]`);
+        imageClicked.classList.add('clicked')
+        return e.target.id.substr(7) ; // return player selection
+        }
+
+    function computerPlay(e){
+        let choices = ['Rock', 'Paper', 'Scissors'];
+        let turn = choices[Math.floor(Math.random() * choices.length)];
+        const computerClicked = document.querySelector(`.image[id = "${turn}"]`);
+        computerClicked.classList.add('clicked');
+        return turn;
+      }
+
+      function showSelection(e, computerSelection, playerSelection){
+            const player = document.querySelector('.player'); // get the buttons div
+            player.textContent = 'Your Selection: ' + playerSelection;
+
+            const computer = document.querySelector('.computer'); // get the buttons div
+            computer.textContent = 'Computer\'s Selection: ' + computerSelection;
+        }
+
+        function humanVComputer(computerSelection, playerSelection){
+        switch(true){
+            case (playerSelection ==='rock' && computerSelection === 'rock'):
+                return 'It\'s a tie';
+                break;
+            case(playerSelection ==='rock' && computerSelection === 'paper'):
+                return 'You Lose!';
+                break;
+            case(playerSelection ==='rock' && computerSelection === 'scissors'):
+                return 'You win!';
+                break;
+            case (playerSelection ==='paper' && computerSelection === 'rock'):
+                return 'You win!';
+                break;
+            case(playerSelection ==='paper' && computerSelection === 'paper'):
+                return 'It\'s a tie';
+                break;
+            case(playerSelection ==='paper' && computerSelection === 'scissors'):
+                return 'You Lose!';
+                break;
+            case (playerSelection ==='scissors' && computerSelection === 'rock'):
+                return 'You Lose!';
+                break;
+            case(playerSelection ==='scissors' && computerSelection === 'paper'):
+                return 'You win!';
+                break;
+            case(playerSelection ==='scissors' && computerSelection === 'scissors'):
+                return 'It\'s a tie';
+                break;
+            default:
+                return 'error';
+                break;      
+            }
+        }
+
+        function updateScore(e , result, playerScore, computerScore){
+            if(result == 'You win!'){
+                playerScore += 1;
+            }else if (result == 'You Lose!'){
+                computerScore += 1;
+            } else {
+                playerScore = playerScore;
+                computerScore = computerScore;
+            }
+            return [playerScore, computerScore];
+        }
+
+        function showScores(playerScore, computerScore){
+            const playerS = document.querySelector('.playerScore'); // get the player score 
+            playerS.textContent = 'Player Score: '+ playerScore; 
+
+            const computerS = document.querySelector('.computerScore'); // get the computer score 
+            computerS.textContent = 'Computer Score: '+ computerScore; 
+
+        }
+
+        /*
+        function showResult(e, result){
+            const totalImages = document.querySelector('.Choice-Results '); // get the Images div
+            const displayResult = document.createElement('p')// create new div with result
+            //displayResult.classList.add('center');
+            displayResult.textContent = result; // make content the result
+            totalImages.append(displayResult); // append it to Images
+        }
+        */
+
+
+      function playRound(e){
+    
+        //Get player selection
+        const playerSelection = personPlay(e).toLowerCase();
+
+        //Get computer selection
+        const computerSelection = computerPlay(e).toLowerCase();
+        
+        
+        //Show Computer Selection and Player Selection
+        showSelection(e, computerSelection, playerSelection);
+
+        //Compare the selections
+        result = humanVComputer(computerSelection, playerSelection);
+
+        //make the new scores
+        newScores = updateScore(e, result, playerScore, computerScore);
+        playerScore = newScores[0];
+        computerScore = newScores[1];
+
+
+        // show the new scores
+        showScores(playerScore, computerScore);
+
+        if(playerScore == 5 && computerScore <5){
+            document.body.textContent = "You Win!";
+        } 
+        if(computerScore == 5 && playerScore <5) {
+            document.body.textContent = "You Lose!";
+        }
+        // remove(e, computerSelection)
+        
+        //Show results
+        //showResult(e, result);
+    }
+
+
+        // keeps player and computer score, and plays five rounds of the game
+        function game(){
+            // Wait for click, wait for button to be pressed and use it to know what the player selects.
+            const Images = document.querySelectorAll('.playerImage');
+            Images.forEach(image => image.addEventListener('click', playRound));
+      }
+
+    // initialize player and computer scores Global
+        let playerScore = 0;
+        let computerScore = 0;
+        console.log(computerScore, playerScore)
+        if(playerScore < 5 && computerScore <5 ){
+            game();
+        } else {
+            console.log(gg);
+        }
+
+  </script>
+ 
+</body>
+
+</html>
